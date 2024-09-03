@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Photo Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        form {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Your Wedding Photos/Videos</h1>
+    <form id="upload-form">
+        <input type="file" id="file" name="file" required>
+        <br><br>
+        <button type="submit">Upload</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+        const formActionURL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse'; // Replace with your Google Form URL
+        const entryFieldName = 'entry.YOUR_ENTRY_ID'; // Replace with your Google Form field name
+
+        document.getElementById('upload-form').onsubmit = async function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('file');
+            if (fileInput.files.length > 0) {
+                const formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+
+                try {
+                    const response = await fetch('https://file.io', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        document.getElementById('message').innerText = 'File uploaded successfully!';
+                        // Automatically submit to Google Form
+                        const formDataToSend = new FormData();
+                        formDataToSend.append(entryFieldName, result.link);
+
+                        await fetch(formActionURL, {
+                            method: 'POST',
+                            body: formDataToSend,
+                            mode: 'no-cors'
+                        });
+
+                        document.getElementById('message').innerHTML += ' The download link has been saved.';
+                    } else {
+                        document.getElementById('message').innerText = 'File upload failed. Please try again.';
+                    }
+                } catch (error) {
+                    document.getElementById('message').innerText = 'Error: ' + error.message;
+                }
+            }
+        };
+    </script>
+</body>
+</html>
