@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Photo Upload</title>
+    <title>Wedding Photo/Video Upload</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,22 +22,36 @@
 <body>
     <h1>Upload Your Wedding Photos/Videos</h1>
     <form id="upload-form">
-        <input type="file" id="file" name="file" required>
+        <input type="file" id="file" name="file" multiple accept="image/*,video/*" required>
         <br><br>
         <button type="submit">Upload</button>
     </form>
     <p id="message"></p>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script>
         const formActionURL = 'https://docs.google.com/forms/d/e/1FAIpQLSeysXTQGaP-v5tCXtEgxnAP4V9C1UWlNQ3LIz7_B7hufix6jQ/formResponse';
         const entryFieldName = 'entry.1176296272';
 
         document.getElementById('upload-form').onsubmit = async function(event) {
             event.preventDefault();
-            const fileInput = document.getElementById('file');
-            if (fileInput.files.length > 0) {
+            const files = document.getElementById('file').files;
+
+            if (files.length > 0) {
+                const zip = new JSZip();
+                const zipFilename = "wedding_photos_videos.zip";
+
+                // Add files to the zip archive
+                for (let i = 0; i < files.length; i++) {
+                    zip.file(files[i].name, files[i]);
+                }
+
+                // Generate the zip file
+                const zipBlob = await zip.generateAsync({ type: "blob" });
+
+                // Upload the zip file to File.io
                 const formData = new FormData();
-                formData.append('file', fileInput.files[0]);
+                formData.append('file', zipBlob, zipFilename);
 
                 try {
                     const response = await fetch('https://file.io', {
@@ -46,7 +60,8 @@
                     });
                     const result = await response.json();
                     if (result.success) {
-                        document.getElementById('message').innerText = 'File uploaded successfully!';
+                        document.getElementById('message').innerText = 'Files compressed and uploaded successfully!';
+
                         // Automatically submit to Google Form
                         const formDataToSend = new FormData();
                         formDataToSend.append(entryFieldName, result.link);
