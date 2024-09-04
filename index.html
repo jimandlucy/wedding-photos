@@ -8,46 +8,52 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f4;
+            background-color: #F5F5DC; /* Beige color */
             color: #333;
             margin: 0;
-            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/moroccan.png');
+            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/arabesque.png'); /* Arabesque background pattern */
             background-size: auto;
             background-repeat: repeat;
         }
         .header-band {
             width: 100%;
-            background-color: #8B0000; /* Deep red */
+            background-color: #4B3A31; /* Dark brown */
             padding: 20px 0;
-            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/moroccan-flower.png');
-            background-size: cover;
-            background-position: center;
             margin-top: 20px; /* Small gap at the top */
+            text-align: center;
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Slight shadow for separation */
         }
         .header-band h1 {
             margin: 0;
             font-size: 2.5em;
-            color: #fff;
+            color: #FFD700; /* Gold color */
             text-transform: uppercase;
         }
         .header-band h2 {
             margin: 0;
             font-size: 1.5em;
-            color: #f4f4f4;
-        }
-        .header-band {
-            text-align: center;
+            color: #FFF8DC; /* Cornsilk color */
         }
         form {
             display: block;
             margin: 50px auto 0;
             padding: 30px;
-            border: 2px solid #8B0000; /* Deep red */
-            background-color: #fff;
+            background-color: #FFF8DC; /* Cornsilk background for the form */
+            border: 2px solid transparent;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
             width: 300px; /* Fixed width for centering */
+            position: relative;
+        }
+        form:before {
+            content: '';
+            position: absolute;
+            top: -2px; /* Position it inside the form */
+            right: -2px;
+            bottom: -2px;
+            left: -2px;
+            border: 2px solid #4B3A31; /* Dark brown (same as header color) */
+            pointer-events: none;
         }
         input[type="file"] {
             padding: 10px;
@@ -58,8 +64,8 @@
         }
         button {
             padding: 10px 20px;
-            background-color: #8B0000; /* Deep red */
-            color: white;
+            background-color: #4B3A31; /* Dark brown */
+            color: #FFD700; /* Gold color */
             border: none;
             font-size: 1em;
             cursor: pointer;
@@ -68,17 +74,17 @@
             box-sizing: border-box;
         }
         button:hover {
-            background-color: #A52A2A; /* Brown */
+            background-color: #5C4638; /* Lighter brown for hover */
         }
         p#message {
             margin-top: 20px;
             font-size: 1.2em;
-            color: #8B0000; /* Deep red */
+            color: #4B3A31; /* Match the header color */
         }
         .loader {
             border: 8px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 8px solid #8B0000; /* Deep red */
+            border-top: 8px solid #4B3A31; /* Dark brown */
             width: 60px;
             height: 60px;
             animation: spin 1s linear infinite;
