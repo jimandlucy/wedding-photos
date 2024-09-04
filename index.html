@@ -56,6 +56,20 @@
             font-size: 1.2em;
             color: #8B0000; /* Deep red */
         }
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 8px solid #8B0000; /* Deep red */
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            display: none;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -67,6 +81,7 @@
         <br><br>
         <button type="submit">Upload</button>
     </form>
+    <div class="loader" id="loader"></div>
     <p id="message"></p>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
@@ -79,6 +94,13 @@
             const files = document.getElementById('file').files;
 
             if (files.length > 0) {
+                const loader = document.getElementById('loader');
+                const message = document.getElementById('message');
+
+                // Show loader and update message
+                loader.style.display = 'block';
+                message.innerText = 'Processing your files, please wait...';
+
                 const zip = new JSZip();
                 const zipFilename = "wedding_photos_videos.zip";
 
@@ -101,7 +123,7 @@
                     });
                     const result = await response.json();
                     if (result.success) {
-                        document.getElementById('message').innerText = 'Files compressed and uploaded successfully!';
+                        message.innerText = 'Files compressed and uploaded successfully!';
 
                         // Automatically submit to Google Form
                         const formDataToSend = new FormData();
@@ -113,12 +135,15 @@
                             mode: 'no-cors'
                         });
 
-                        document.getElementById('message').innerHTML += ' The download link has been saved.';
+                        message.innerHTML += ' The download link has been saved.';
                     } else {
-                        document.getElementById('message').innerText = 'File upload failed. Please try again.';
+                        message.innerText = 'File upload failed. Please try again.';
                     }
                 } catch (error) {
-                    document.getElementById('message').innerText = 'Error: ' + error.message;
+                    message.innerText = 'Error: ' + error.message;
+                } finally {
+                    // Hide loader when done
+                    loader.style.display = 'none';
                 }
             }
         };
