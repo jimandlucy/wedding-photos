@@ -6,21 +6,61 @@
     <title>Jim and Lucy's Wedding</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
             text-align: center;
             margin-top: 50px;
+            background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/moroccan-flower.png');
+            background-size: cover;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #8B0000; /* Deep red */
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.5em;
+            color: #8B4513; /* SaddleBrown */
+            margin-bottom: 30px;
         }
         form {
             display: inline-block;
             margin: 20px auto;
-            padding: 20px;
+            padding: 30px;
+            border: 2px solid #8B0000; /* Deep red */
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="file"] {
+            padding: 10px;
+            border-radius: 5px;
             border: 1px solid #ccc;
-            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #8B0000; /* Deep red */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #A52A2A; /* Brown */
+        }
+        p#message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #8B0000; /* Deep red */
         }
     </style>
 </head>
 <body>
-    <h1>Upload Your Wedding Photos/Videos</h1>
+    <h1>Jim and Lucy's Wedding</h1>
+    <h2>06/09/2024</h2>
     <form id="upload-form">
         <!-- Allow multiple files to be selected -->
         <input type="file" id="file" name="file" multiple accept="image/*,video/*" required>
