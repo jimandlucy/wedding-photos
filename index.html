@@ -40,18 +40,18 @@
             margin: 50px auto 0;
             padding: 30px;
             background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
-            border: 2px solid #F5DEB3; /* Wheat border slightly inside the div */
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            border: 5px solid #FFFFFF; /* White external border */
+            position: relative;
             text-align: center;
             width: 300px; /* Fixed width for centering */
-            position: relative;
             box-sizing: border-box;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
         }
         form::before {
             content: "";
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 2px;
+            left: 2px;
             width: calc(100% - 4px);
             height: calc(100% - 4px);
             border: 2px solid #8C6D40; /* Warm brown border inside the form */
