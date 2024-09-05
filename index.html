@@ -39,12 +39,23 @@
             display: block;
             margin: 50px auto 0;
             padding: 30px;
-            background-color: #FFFFFF; /* White background for the form */
-            border: 2px solid #8C6D40; /* Warm brown border matching the header */
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+            border: 2px solid #F5DEB3; /* Wheat border slightly inside the div */
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
             text-align: center;
             width: 300px; /* Fixed width for centering */
             position: relative;
+            box-sizing: border-box;
+        }
+        form::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc(100% - 4px);
+            height: calc(100% - 4px);
+            border: 2px solid #8C6D40; /* Warm brown border inside the form */
+            pointer-events: none;
         }
         input[type="file"] {
             padding: 10px;
@@ -67,24 +78,24 @@
         button:hover {
             background-color: #A67F4F; /* Slightly lighter brown on hover */
         }
-        p#message {
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: #8C6D40; /* Match the header color */
-        }
         .loader {
-            border: 8px solid #f3f3f3;
+            border: 6px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 8px solid #8C6D40; /* Warm brown */
-            width: 60px;
-            height: 60px;
+            border-top: 6px solid #8C6D40; /* Warm brown */
+            width: 40px;
+            height: 40px;
             animation: spin 1s linear infinite;
             display: none;
-            margin: 20px auto;
+            margin: 10px auto;
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        p#message {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #8C6D40; /* Match the header color */
         }
     </style>
 </head>
@@ -98,9 +109,9 @@
         <input type="file" id="file" name="file" multiple accept="image/*,video/*" required>
         <br><br>
         <button type="submit">Upload</button>
+        <div class="loader" id="loader"></div>
+        <p id="message"></p>
     </form>
-    <div class="loader" id="loader"></div>
-    <p id="message"></p>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
     <script>
